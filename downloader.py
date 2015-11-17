@@ -16,14 +16,11 @@ def download(command):
     communicate(command)
     print "Done ",command.split('/')[-1]
 
-def getVersions(versionsFile):
-    return [version.strip() for version in open(versionsFile)]
-
 def init_chrome(softwareName):
     baseCommand = 'wget -P chrome https://chromium.googlesource.com/chromium/src.git/+archive/%s.tar.gz'
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         command = baseCommand % version
         commands.append(command)
@@ -33,7 +30,7 @@ def init_linux_kernel(softwareName):
     baseCommand = 'wget -P linux_kernel https://www.kernel.org/pub/linux/kernel/v%s/linux-%s.tar.xz'
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         if version[0] == "4":
             command = baseCommand % ("4.x",version)
@@ -46,7 +43,7 @@ def init_firefox(software):
     baseCommand = 'wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/source/firefox-%s.source.tar.bz2'
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         baseCommand = dictForCommand[softwareName]
         if version.split(".")[0] >= "1":
@@ -73,7 +70,7 @@ def init_seamonkey(softwareName):
     baseCommand = 'wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/source/seamonkey-%s.source.tar.bz2'
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         if version.split(".")[0] == "1":
             command = "wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/seamonkey-%s.source.tar.bz2" % (version,version)
@@ -87,7 +84,7 @@ def init_seamonkey(softwareName):
 def init_thunderbird(softwareName):
     versionsFile = softwareName + ".txt"
     commands = []
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         if version.split(".")[0] == "0":
             if version == "0.1":
@@ -113,7 +110,7 @@ def init_wireshark(softwareName):
     baseCommand = 'wget -P wireshark https://www.wireshark.org/download/src/all-versions/wireshark-%s.tar.bz2'
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         command = baseCommand % version
         commands.append(command)
@@ -123,7 +120,7 @@ def init_webkit(softwareName):
     baseCommand = "svn checkout https://svn.webkit.org/repository/webkit/releases/WebKitGTK/webkit-%s/ ./webkit/webkit-%s/"
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         command = baseCommand % (version,version)
         commands.append(command)
@@ -133,7 +130,7 @@ def init_ffmpeg(softwareName):
     baseCommand = "wget -P ffmpeg http://ffmpeg.org/releases/ffmpeg-%s.tar.bz2"
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
         command = baseCommand % version
         commands.append(command)
@@ -144,7 +141,7 @@ def init_httpd(softwareName):
     baseCommand1 = "wget -P  httpd http://archive.apache.org/dist/httpd/httpd-%s.tar.gz"
     versionsFile = softwareName + ".txt"
     commands = [] 
-    for version in open(versionsFile):
+    for version in open("./versions/" + versionsFile):
         version = version.strip()
 	if version.split(".")[0] == "1":
             command = baseCommand % version
@@ -159,7 +156,7 @@ def main():
     if len(sys.argv) !=2:
         print '''Usage: python download.py <softwareName>
         Tips:Please confirm your software versions file name must be same to the software name
-        Example: chrome.txt mozilla.txt...'''
+        Example: chrome.txt firefox.txt...'''
         return
     softwareName = sys.argv[1]
     if softwareName == "chrome":
