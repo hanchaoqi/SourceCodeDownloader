@@ -23,9 +23,10 @@ def init(softwareName):
     '''init needed data,output command list'''
     dictForCommand ={'chrome':'wget -P chrome https://chromium.googlesource.com/chromium/src.git/+archive/%s.tar.gz',
                 'linux_kernel':'wget -P linux_kernel https://www.kernel.org/pub/linux/kernel/v%s/linux-%s.tar.xz',
-                'firefox':'wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/source/firefox-%s.source.tar.bz2'}
+                'firefox':'wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/source/firefox-%s.source.tar.bz2i',
+                'seamonkey':'wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/source/seamonkey-%s.source.tar.bz2'}
     
-    versionsFile = softwareName + "1.txt"
+    versionsFile = softwareName + ".txt"
     baseCommand = dictForCommand[softwareName]
     commands = []
     
@@ -64,6 +65,17 @@ def init(softwareName):
             else:
                 break;
             commands.append(command)
+    elif softwareName == "seamonkey":
+        for version in open(versionsFile):
+            version = version.strip()
+            if version.split(".")[0] == "1":
+                command = "wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/seamonkey-%s.source.tar.bz2" % (version,version)
+            elif version.split(".")[1][:2] == "38" or version.split(".")[1][:2] == "39":
+                command = "wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/source/seamonkey-%s.source.tar.xz" % (version,version)
+            else:
+                command = "wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/source/seamonkey-%s.source.tar.bz2" % (version,version)
+            commands.append(command)
+        
     else:
         print "Software Name Wrong!"
         return
