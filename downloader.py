@@ -16,21 +16,21 @@ def download(command):
     communicate(command)
     print "Done ",command.split('/')[-1]
 
-def init_chrome(softwareName):
+def init_chrome():
     baseCommand = 'wget -P chrome https://chromium.googlesource.com/chromium/src.git/+archive/%s.tar.gz'
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/chrome.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         command = baseCommand % version
         commands.append(command)
     return commands
 
-def init_linux_kernel(softwareName):
+def init_linux_kernel():
     baseCommand = 'wget -P linux_kernel https://www.kernel.org/pub/linux/kernel/v%s/linux-%s.tar.xz'
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/linux_kernel.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         if version[0] == "4":
             command = baseCommand % ("4.x",version)
@@ -39,20 +39,19 @@ def init_linux_kernel(softwareName):
         commands.append(command)
     return commands 
 
-def init_firefox(software):
+def init_firefox():
     baseCommand = 'wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/source/firefox-%s.source.tar.bz2'
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/firefox.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
-        baseCommand = dictForCommand[softwareName]
         if version.split(".")[0] >= "1":
             if version[:3] == "1.0" or version[:3] == "2.0" or version[:3] == "3.0":
-                baseCommand = "wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/source/firefox-%s-source.tar.bz2"
+                baseCommand1 = "wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/source/firefox-%s-source.tar.bz2"
             if version[-4:] == "real":
-                command = baseCommand % (version,version.split("-")[0])
+                command = baseCommand1 % (version,version.split("-")[0])
             else:
-                command = baseCommand % (version,version) 
+                command = baseCommand1 % (version,version) 
         elif version[:3] == "0.9":
             command = "wget -P firefox http://ftp.mozilla.org/pub/firefox/releases/%s/firefox-%s-source.tar.bz2" % (version,version)
         elif version == "0.10" or version == "0.10.1":
@@ -66,11 +65,11 @@ def init_firefox(software):
         commands.append(command)
     return commands
 
-def init_seamonkey(softwareName):
+def init_seamonkey():
     baseCommand = 'wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/source/seamonkey-%s.source.tar.bz2'
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/seamonkey.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         if version.split(".")[0] == "1":
             command = "wget -P seamonkey http://ftp.mozilla.org/pub/mozilla.org/seamonkey/releases/%s/seamonkey-%s.source.tar.bz2" % (version,version)
@@ -81,10 +80,10 @@ def init_seamonkey(softwareName):
         commands.append(command)
     return commands      
 
-def init_thunderbird(softwareName):
-    versionsFile = softwareName + ".txt"
+def init_thunderbird():
+    versionsFile = "./versions/thunderbird.txt"
     commands = []
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         if version.split(".")[0] == "0":
             if version == "0.1":
@@ -106,42 +105,42 @@ def init_thunderbird(softwareName):
         commands.append(command)
     return commands
 
-def init_wireshark(softwareName):
+def init_wireshark():
     baseCommand = 'wget -P wireshark https://www.wireshark.org/download/src/all-versions/wireshark-%s.tar.bz2'
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/wireshark.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         command = baseCommand % version
         commands.append(command)
     return commands
 
-def init_webkit(softwareName):
+def init_webkit():
     baseCommand = "svn checkout https://svn.webkit.org/repository/webkit/releases/WebKitGTK/webkit-%s/ ./webkit/webkit-%s/"
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/webkit.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         command = baseCommand % (version,version)
         commands.append(command)
     return commands
     
-def init_ffmpeg(softwareName):
+def init_ffmpeg():
     baseCommand = "wget -P ffmpeg http://ffmpeg.org/releases/ffmpeg-%s.tar.bz2"
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/ffmpeg.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
         command = baseCommand % version
         commands.append(command)
     return commands
 
-def init_httpd(softwareName):
+def init_httpd():
     baseCommand = "wget -P  httpd http://archive.apache.org/dist/httpd/apache_%s.tar.gz"
     baseCommand1 = "wget -P  httpd http://archive.apache.org/dist/httpd/httpd-%s.tar.gz"
-    versionsFile = softwareName + ".txt"
+    versionsFile = "./versions/httpd.txt"
     commands = [] 
-    for version in open("./versions/" + versionsFile):
+    for version in open(versionsFile):
         version = version.strip()
 	if version.split(".")[0] == "1":
             command = baseCommand % version
@@ -149,7 +148,23 @@ def init_httpd(softwareName):
             command = baseCommand1 % version
         commands.append(command)
     return commands
-    
+def init_xen():
+    baseCommand = 'wget -P xen http://bits.xensource.com/oss-xen/release/%s/xen-%s.tar.gz'
+    versionsFile = './versions/xen.txt'
+    commands = []
+    for version in open(versionsFile):
+        version = version.strip()
+        if version == "3.0.4" :
+            command = 'wget -P xen http://bits.xensource.com/oss-xen/release/3.0.4-1/src.tgz/xen-3.0.4_1-src.tgz'
+        elif version == "3.0.3" :
+            command = 'wget -P xen http://bits.xensource.com/oss-xen/release/3.0.3-0/src.tgz/xen-3.0.3_0-src.tgz'
+        elif version == '3.0.2':
+            command = 'wget -P xen http://bits.xensource.com/Xen/latest/xen-3.0.2-src.tgz'
+        else:
+            command = baseCommand % (version,version)
+        commands.append(command)
+    return commands
+            
  
 def main():
     
@@ -159,24 +174,9 @@ def main():
         Example: chrome.txt firefox.txt...'''
         return
     softwareName = sys.argv[1]
-    if softwareName == "chrome":
-        commands = init_chrome(softwareName)
-    elif softwareName == "firefox":
-        commands = init_firefox(softwareName)
-    elif softwareName == "linux_kernel":
-        commands = init_linux_kernel(softwareName)
-    elif softwareName == "seamonkey":
-        commands = init_seamonkey(softwareName)
-    elif softwareName == "thunderbird":
-        commands = init_thunderbird(softwareName)
-    elif softwareName == "wireshark":
-        commands = init_wireshark(softwareName)
-    elif softwareName == "webkit":
-        commands = init_webkit(softwareName)
-    elif softwareName == "ffmpeg":
-        commands = init_ffmpeg(softwareName)
-    elif softwareName == "httpd":
-        commands = init_httpd(softwareName)
+    func_name = "init_" + softwareName
+    commands = eval(func_name)()
+    
     pool = ThreadPool(64)
     pool.map(download,commands)
     pool.close()
