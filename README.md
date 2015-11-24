@@ -34,3 +34,6 @@
 - httpd
     - 下载地址：http://archive.apache.org/dist/httpd/
     - 支持所有版本
+- xen
+    - 下载地址：http://xenproject.org/downloads/xen-archives.html
+    - 支持所有可下载版本
