@@ -37,3 +37,12 @@
 - xen
     - 下载地址：http://xenproject.org/downloads/xen-archives.html
     - 支持所有可下载版本
+- openssl
+    - 下载地址：ftp://ftp.openssl.org/source/
+    - 支持所有版本
+- mozilla
+    - 下载地址：http://ftp.mozilla.org/pub/mozilla/releases/
+    - 支持所有版本
+- samba
+    - 下载地址：https://download.samba.org/pub/samba/
+    - 支持所有版本

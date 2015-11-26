@@ -164,8 +164,71 @@ def init_xen():
             command = baseCommand % (version,version)
         commands.append(command)
     return commands
+def init_openssl():
+    baseCommand0 = 'wget -P openssl ftp://ftp.openssl.org/source/openssl-%s.tar.gz'
+    baseCommand1 = 'wget -P openssl ftp://ftp.openssl.org/source/old/0.9.x/openssl-%s.tar.gz'
+    baseCommand2 = 'wget -P openssl ftp://ftp.openssl.org/source/old/1.0.0/openssl-%s.tar.gz'
+    baseCommand3 = 'wget -P openssl ftp://ftp.openssl.org/source/old/1.0.1/openssl-%s.tar.gz'
+    baseCommand4 = 'wget -P openssl ftp://ftp.openssl.org/source/old/1.0.2/openssl-%s.tar.gz'
+    baseCommand5 = 'wget -P openssl ftp://ftp.openssl.org/source/old/fips/openssl-%s.tar.gz'
+    versionsFile = './versions/openssl.txt'
+    commands = []
+    flag = 'KEY.1'
+    baseCommand = baseCommand1
+    for version in open(versionsFile):
+        version = version.strip()
+        if version[:3] == 'KEY':
+            flag = version
+            baseCommand = eval('baseCommand' + version.split(".")[-1])
+            continue
+        commands.append(baseCommand % version)
+    return commands
+def init_mozilla():
+    commands = []
+    versionsFile = './versions/mozilla.txt'
+    list0 = ['m10','m11','m12','m13','m15','m16','m17','m18']
+    list1 = ['m4','m5','m6']
+    list2 = ['m7','m8','m9']
+    list3 = ['1.8a5','1.8a6','1.8b1']
+    list4 = ['1.0.1rc2','1.0.1rc1','1.4rc1','1.4rc2','1.4rc3','1.5rc1','1.5rc2','1.7rc1','1.7rc3']
+
+    for version in open(versionsFile):
+        version = version.strip()
+        if version in list0:
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/%s/src/mozilla-source-%s.tar.gz' % (version,'M'+version[1:])
+        elif version in list1:
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/%s/TGZ/mozilla-5.0-%s.tar.gz' % (version,'M'+version[1:])
+        elif version in list2:
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/%s/TGZ/mozilla-source-%s.tar.gz' % (version,'M'+version[1:])
+        elif version in list3:
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/mozilla%s/source/mozilla-source-%s.tar.gz' % (version,version)
+        elif version in list4:
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/mozilla%s/mozilla-i686-pc-linux-gnu-%s.tar.gz' % (version,version)
+        elif version == 'm14':
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/m14/src/mozilla-source-M14-no-crypto.tar.gz'
+        elif version == 'm3':
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/m3/TGZ/mozilla-5.0-SeaMonkey_M3_BRANCH_19990323.tar.gz'
+        else:
+            command = 'wget -P mozilla http://ftp.mozilla.org/pub/mozilla/releases/mozilla%s/src/mozilla-source-%s.tar.gz' % (version,version)
+        commands.append(command)
+    return commands
+
+def init_samba():
+    baseCommand = 'wget -P samba https://download.samba.org/pub/samba/'
+    commands = []
+    versionsFile = './versions/samba.txt'
+    for version in open(versionsFile):
+        version = version.strip()
+        if version[:3] == "KEY":
+            baseCommand1 = baseCommand + version.split("+")[1]
+            continue
+        else:
+            command = baseCommand1 % version
+        print command
+        commands.append(command)
+    return commands
             
- 
+
 def main():
     
     if len(sys.argv) !=2:
