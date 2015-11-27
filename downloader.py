@@ -217,10 +217,18 @@ def init_samba():
     baseCommand = 'wget -P samba https://download.samba.org/pub/samba/'
     commands = []
     versionsFile = './versions/samba.txt'
+    url0 = 'old-versions/nbserver-%s.tar.Z'
+    url1 = 'old-versions/nbserver-%s.tar.gz'
+    url2 = 'old-versions/samba-%s.tar.bz2'
+    url3 = 'old-versions/samba-%s.tar.gz'
+    url4 = 'old-versions/server-%s.tar.gz'
+    url5 = 'old-versions/server-%s.tar.Z'
+    url6 = 'old-versions/smbserver-%s.tar.gz'
+    url7 = 'samba-%s.tar.gz'
     for version in open(versionsFile):
         version = version.strip()
         if version[:3] == "KEY":
-            baseCommand1 = baseCommand + version.split("+")[1]
+            baseCommand1 = baseCommand + eval('url'+version[-1])
             continue
         else:
             command = baseCommand1 % version
@@ -228,6 +236,61 @@ def init_samba():
         commands.append(command)
     return commands
             
+def init_bind():
+    baseCommand = 'wget -P bind -A .tar.gz -r -nd ftp://ftp.isc.org/isc/'
+    commands = []
+    versionsFile = './versions/bind.txt'
+    url0 = 'bind4/src/%s/*'
+    url1 = 'bind8/src/%s/*'
+    url2 = 'bind9/%s/*'
+    url3 = 'bind10/%s/*'
+    for version in open(versionsFile):
+        version = version.strip()
+        if version[:3] == "KEY":
+            baseCommand1 = baseCommand + eval('url'+version[-1])
+            continue
+        else:
+            if version[:3] == '4.8':
+                command = baseCommand1 % version[:3]
+            else:
+                command = baseCommand1 % version
+        commands.append(command)
+    for command in commands:
+        download(command)
+    commands = ['Hi,honey~',] 
+    return commands
+
+def init_postgresql():
+    baseCommand = 'wget -P postgresql https://ftp.postgresql.org/pub/source/v%s/'
+    commands = []
+    versionsFile = './versions/postgresql.txt'
+    url0 = 'postgresql-%s.tar.gz'
+    url1 = 'postgresql-v%s.tar.gz'
+    url2 = 'postgres95-%s.tar.gz'
+    for version in open(versionsFile):
+        version = version.strip()
+        if version[0] > '6':
+            command = (baseCommand + url0) % (version,version)
+        elif version[:3] == '6.0':
+            command = (baseCommand + url1) % (version,version)
+        elif version[:2] == '6.':
+            command = (baseCommand + url0) % (version[:3],version)
+        elif version == '1.08' or version == '1.09':
+            command = (baseCommand + url2) % (version,version)
+        print command
+        commands.append(command)
+    return commands
+
+def init_freetype():
+    baseCommand = 'wget -P freetype http://freetype.sourcearchive.com/downloads/%s/freetype_%s.orig.tar.gz'
+    commands = []
+    versionsFile = './versions/freetype.txt'
+    for version in open(versionsFile):
+        version = version.strip()
+        command = baseCommand % (version,version)
+        commands.append(command)
+    return commands
+
 
 def main():
     

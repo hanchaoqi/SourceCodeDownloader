@@ -46,3 +46,12 @@
 - samba
     - 下载地址：https://download.samba.org/pub/samba/
     - 支持所有版本
+- bind
+    - 下载地址：ftp://ftp.isc.org/isc/
+    - 支持所有版本
+- postgresql
+    - 下载地址：http://www.postgresql.org/ftp/source/
+    - 支持所有版本
+- freetype
+    - 下载地址：http://freetype.sourcearchive.com/
+    - 支持所有可下载版本
