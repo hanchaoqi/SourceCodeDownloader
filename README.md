@@ -55,3 +55,9 @@
 - freetype
     - 下载地址：http://freetype.sourcearchive.com/
     - 支持所有可下载版本
+- openssh
+    - 下载地址：http://ftp.jaist.ac.jp/pub/OpenBSD/OpenSSH/
+    - 支持所有版本
+- asterisk
+    - 下载地址：http://downloads.asterisk.org/pub/telephony/asterisk/releases/
+    - 支持所有可下载版本

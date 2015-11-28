@@ -291,6 +291,32 @@ def init_freetype():
         commands.append(command)
     return commands
 
+def init_openssh():
+    baseCommand = 'wget -P openssh http://ftp.jaist.ac.jp/pub/OpenBSD/OpenSSH/openssh-%s'
+    commands = []
+    versionsFile = './versions/openssh.txt'
+    flag = None
+    for version in open(versionsFile):
+        version = version.strip()
+        if version == 'KEY0':
+            command1 = baseCommand + '.tgz'
+            continue
+        elif version == 'KEY1':
+            command1 = baseCommand + '.tar.gz'
+            continue
+        command = command1 % version
+        commands.append(command)
+    return commands
+    
+def init_asterisk():
+    baseCommand = 'wget -P asterisk http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-%s.tar.gz'
+    commands = []
+    versionsFile = './versions/asterisk.txt'
+    for version in open(versionsFile):
+        version = version.strip()
+        command = baseCommand % version
+        commands.append(command)
+    return commands
 
 def main():
     
