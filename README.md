@@ -67,3 +67,12 @@
 - libpng
     - 下载地址：http://lil.fr.packages.macports.org/libpng/
     - 支持所有可下载版本
+- clamav
+    - 下载地址：http://sourceforge.net/projects/clamav/files/clamav/
+    - 支持所有版本
+- pidgin
+    - 下载地址：http://pidgin.sourcearchive.com/
+    - 支持所有可下载版本
+- vlc_media_player
+    - 下载地址：http://download.videolan.org/pub/videolan/vlc/
+    - 支持所有版本

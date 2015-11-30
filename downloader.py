@@ -173,12 +173,10 @@ def init_openssl():
     baseCommand5 = 'wget -P openssl ftp://ftp.openssl.org/source/old/fips/openssl-%s.tar.gz'
     versionsFile = './versions/openssl.txt'
     commands = []
-    flag = 'KEY.1'
     baseCommand = baseCommand1
     for version in open(versionsFile):
         version = version.strip()
         if version[:3] == 'KEY':
-            flag = version
             baseCommand = eval('baseCommand' + version.split(".")[-1])
             continue
         commands.append(baseCommand % version)
@@ -295,7 +293,6 @@ def init_openssh():
     baseCommand = 'wget -P openssh http://ftp.jaist.ac.jp/pub/OpenBSD/OpenSSH/openssh-%s'
     commands = []
     versionsFile = './versions/openssh.txt'
-    flag = None
     for version in open(versionsFile):
         version = version.strip()
         if version == 'KEY0':
@@ -322,7 +319,6 @@ def init_proftpd():
     baseCommand='wget -P proftpd ftp://ftp.proftpd.org/historic/source/proftpd-%s.tar.gz'
     commands=[]
     versionsFile='./versions/proftpd.txt'
-    flag=None
     for version in open(versionsFile):
         version = version.strip()
         command = baseCommand % version
@@ -333,7 +329,6 @@ def init_libpng():
     baseCommand = 'wget -P libpng http://lil.fr.packages.macports.org/libpng/libpng-%s'
     commands = []
     versionsFile = './versions/libpng.txt'
-    flag = None
     for version in open(versionsFile):
         version = version.strip()
         if version == 'key0':
@@ -343,6 +338,52 @@ def init_libpng():
             command1 = baseCommand + '.x86_64.tbz2'
             continue
         command = command1 % version
+        commands.append(command)
+    return commands    
+
+def init_clamav():
+    baseCommand='wget -P clamav http://sourceforge.net/projects/clamav/files/clamav/%s/clamav-%s.tar.gz'
+    commands=[]
+    versionsFile='./versions/clamav.txt'
+    for version in open(versionsFile):
+        version = version.strip()
+        command = baseCommand % (version,version)
+        commands.append(command)
+    return commands
+
+def init_pidgin():
+    baseCommand='wget -P pidgin http://pidgin.sourcearchive.com/downloads/%s/pidgin_%s.orig.tar.bz2'
+    commands=[]
+    versionsFile='./versions/pidgin.txt.tmp'
+    for version in open(versionsFile):
+        version = version.strip()
+        name = version
+        if name[:2] == "1:":
+            name = name[2:]
+        index = name.find("-")
+        if index != -1:
+            name = name[:index]
+        command = baseCommand % (version,name)
+        commands.append(command)
+    return commands
+
+
+def init_vlc_media_player():
+    baseCommand = 'wget -P vlc_media_player http://download.videolan.org/pub/videolan/vlc/%s/vlc-%s.tar.'
+    commands = []
+    versionsFile = './versions/vlc_media_player.txt.tmp'
+    for version in open(versionsFile):
+        version = version.strip()
+        if version == 'KEY0':
+            command1 = baseCommand + 'gz'
+            continue
+        elif version == 'KEY1':
+            command1 = baseCommand + 'bz2'
+            continue
+        elif version == 'KEY2':
+            command1 = baseCommand + 'xz'
+            continue
+        command = command1 % (version,version)
         commands.append(command)
     return commands    
 
