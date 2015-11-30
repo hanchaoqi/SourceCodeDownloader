@@ -61,3 +61,9 @@
 - asterisk
     - 下载地址：http://downloads.asterisk.org/pub/telephony/asterisk/releases/
     - 支持所有可下载版本
+- proftpd
+    - 下载地址：ftp://ftp.proftpd.org/historic/source/
+    - 支持所有版本
+- libpng
+    - 下载地址：http://lil.fr.packages.macports.org/libpng/
+    - 支持所有可下载版本

@@ -318,6 +318,34 @@ def init_asterisk():
         commands.append(command)
     return commands
 
+def init_proftpd():
+    baseCommand='wget -P proftpd ftp://ftp.proftpd.org/historic/source/proftpd-%s.tar.gz'
+    commands=[]
+    versionsFile='./versions/proftpd.txt'
+    flag=None
+    for version in open(versionsFile):
+        version = version.strip()
+        command = baseCommand % version
+        commands.append(command)
+    return commands
+   
+def init_libpng():
+    baseCommand = 'wget -P libpng http://lil.fr.packages.macports.org/libpng/libpng-%s'
+    commands = []
+    versionsFile = './versions/libpng.txt'
+    flag = None
+    for version in open(versionsFile):
+        version = version.strip()
+        if version == 'key0':
+            command1 = baseCommand + '.i386-x86_64.tbz2'
+            continue
+        elif version == 'key1':
+            command1 = baseCommand + '.x86_64.tbz2'
+            continue
+        command = command1 % version
+        commands.append(command)
+    return commands    
+
 def main():
     
     if len(sys.argv) !=2:
