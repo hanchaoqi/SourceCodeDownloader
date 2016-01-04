@@ -371,7 +371,7 @@ def init_pidgin():
 def init_vlc_media_player():
     baseCommand = 'wget -P vlc_media_player http://download.videolan.org/pub/videolan/vlc/%s/vlc-%s.tar.'
     commands = []
-    versionsFile = './versions/vlc_media_player.txt.tmp'
+    versionsFile = './versions/vlc_media_player.txt'
     for version in open(versionsFile):
         version = version.strip()
         if version == 'KEY0':
@@ -386,6 +386,23 @@ def init_vlc_media_player():
         command = command1 % (version,version)
         commands.append(command)
     return commands    
+
+def init_libav():
+    baseCommand = "wget -P libav https://libav.org/releases/libav-%s.tar.xz"
+    baseCommand1 = "wget -P libav https://libav.org/releases/old/libav-%s.tar.xz"
+    commands = []
+    versionsFile = "./versions/libav.txt.tmp"
+    for version in open(versionsFile):
+        version = version.strip()
+        if version == "KEY0":
+            baseCommand0 = baseCommand1
+            continue
+        elif version == "KEY1":
+            baseCommand0 = baseCommand
+            continue
+        command = baseCommand0 % version
+        commands.append(command)
+    return commands
 
 def main():
     
