@@ -76,3 +76,6 @@
 - vlc_media_player
     - 下载地址：http://download.videolan.org/pub/videolan/vlc/
     - 支持所有版本
+- libav
+    - 下载地址：https://libav.org/releases/
+    - 支持所有版本
