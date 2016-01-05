@@ -391,7 +391,7 @@ def init_libav():
     baseCommand = "wget -P libav https://libav.org/releases/libav-%s.tar.xz"
     baseCommand1 = "wget -P libav https://libav.org/releases/old/libav-%s.tar.xz"
     commands = []
-    versionsFile = "./versions/libav.txt.tmp"
+    versionsFile = "./versions/libav.txt"
     for version in open(versionsFile):
         version = version.strip()
         if version == "KEY0":
