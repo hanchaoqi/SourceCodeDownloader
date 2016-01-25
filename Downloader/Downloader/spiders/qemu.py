@@ -2,8 +2,15 @@
 import scrapy
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
+from scrapy.selector import Selector
 #from Downloader.items import DownloaderItem
+from subprocess import Popen,PIPE
+from multiprocessing.dummy import Pool as ThreadPool
+from urlparse import urljoin
 
+def communicate(commandLine):
+    process = Popen(commandLine,stdout=PIPE,stderr=PIPE,shell=True)
+    return process.communicate()
 
 class QemuSpider(CrawlSpider):
     name = 'qemu'
@@ -11,13 +18,16 @@ class QemuSpider(CrawlSpider):
     start_urls = ['https://github.com/qemu/qemu/releases']
 
     rules = (
-        Rule(LinkExtractor(allow=r'/qemu/qemu/archive/.*\.tar\.gz'), callback='parse_item', follow=False),
-        Rule(LinkExtractor(allow=r'https://github.com/qemu/qemu/releases\?.*',restrict_xpaths='//div[@class="pagination"]/a[contains(.,"Next")]'),follow=True),
+        #Rule(LinkExtractor(allow=r'/qemu/qemu/archive/.*\.tar\.gz'), callback='parse_item', follow=False),
+        Rule(LinkExtractor(allow=r'https://github.com/qemu/qemu/releases\?.*',restrict_xpaths='//div[@class="pagination"]/a[contains(.,"Next")]'),callback='prase_item',follow=True),
     )
 
     def parse_item(self, response):
-        i = DownloaderItem()
-        #i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
-        #i['name'] = response.xpath('//div[@id="name"]').extract()
-        #i['description'] = response.xpath('//div[@id="description"]').extract()
-        return i
+        domain = 'https://github.com'
+        sel = Selector(response)
+        urls = sel.xpath('//ul[@class="tag-references"]/li[3]/a/@href').extract()
+        for url in urls:
+            command = "wget -P qemu " + url
+            self.logger.info(command)
+            communicate(command)
+        return 
