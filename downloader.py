@@ -427,7 +427,16 @@ def init_libtiff():
             command = baseCommand0 % version
         commands.append(command)
     return commands
-    
+
+def init_cups():
+    baseCommand = "wget -P cups https://www.cups.org/software/%s/cups-%s-source.tar.bz2" 
+    versionsFile = "./versions/cups.txt"
+    commands = []
+    for version in open(versionsFile):
+        version = version.strip()
+        command = baseCommand % (version,version)
+        commands.append(command)
+    return commands
 
 def main():
     
