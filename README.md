@@ -79,3 +79,6 @@
 - libav
     - 下载地址：https://libav.org/releases/
     - 支持所有版本
+- qemu
+    - 下载地址：https://github.com/qemu/qemu/releases/
+    - 支持所有版本
