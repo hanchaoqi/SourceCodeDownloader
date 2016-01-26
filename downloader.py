@@ -404,6 +404,31 @@ def init_libav():
         commands.append(command)
     return commands
 
+def init_libtiff():
+    baseCommand = "wget -P libtiff http://download.osgeo.org/libtiff/tiff-%s.tar.gz"
+    baseCommand1 = "wget -P libtiff http://download.osgeo.org/libtiff/old/tiff-%s.tar.gz"
+    commands = []
+    versionsFile = "./versions/libtiff.txt"
+    sset = (['3.8.0','3.6.1','3.7.1','3.7.2'])
+    for version in open(versionsFile):
+        version = version.strip()
+        if version == "KEY0":
+            baseCommand0 = baseCommand
+            continue
+        elif version == "KEY1":
+            baseCommand0 = baseCommand1
+            continue
+        if version in sset:
+            baseCommands= baseCommand0[:-14] + "pics-%s.tar.gz"
+            command = baseCommands % version
+        elif version == 'v3.4pics':
+            command = baseCommand0[:-14] + version + ".tar.gz"
+        else:
+            command = baseCommand0 % version
+        commands.append(command)
+    return commands
+    
+
 def main():
     
     if len(sys.argv) !=2:
