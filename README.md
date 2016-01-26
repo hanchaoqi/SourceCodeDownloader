@@ -82,3 +82,9 @@
 - qemu
     - 下载地址：https://github.com/qemu/qemu/releases/
     - 支持所有版本
+- libtiff
+    - 下载地址：http://download.osgeo.org/libtiff/
+    - 支持所有版本
+- cups
+    - 下载地址：https://www.cups.org/software.php
+    - 支持所有版本
