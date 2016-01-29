@@ -88,3 +88,27 @@
 - cups
     - 下载地址：https://www.cups.org/software.php
     - 支持所有版本
+- v8
+    - 下载地址：https://github.com/v8/v8-git-mirror/releases
+    - 支持所有版本
+- emacs
+    - 下载地址：https://github.com/emacs-mirror/emacs/releases
+    - 支持所有版本
+- bitcoin
+    - 下载地址：https://github.com/bitcoin/bitcoin/releases
+    - 支持所有版本
+- tcpdump
+    - 下载地址：https://github.com/the-tcpdump-group/tcpdump/releases
+    - 支持所有版本
+- monkey_http_daemon
+    - 下载地址：https://github.com/monkey/monkey/releases
+    - 支持所有版本
+- openswan
+    - 下载地址：https://github.com/xelerance/Openswan/releases
+    - 支持所有版本
+- openafs
+    - 下载地址：https://github.com/openafs/openafs/releases
+    - 支持所有版本
+- openjpeg
+    - 下载地址：https://github.com/uclouvain/openjpeg/releases/
+    - 支持所有版本
