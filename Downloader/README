@@ -1,0 +1,2 @@
+Usage: scrapy crawl downloader -a software=$name
+$name: qemu v8 bitcoin tcpdump emacs monkey openswan openafs openjpeg
