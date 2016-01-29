@@ -2,9 +2,14 @@
 >一个下载器，从一些软件的官方网站下载源代码
 
 ###使用方法：
-将软件版本号按行写入以软件名命名的txt文件中，并将txt文件存放在versions文件夹下;
+1. 将软件版本号按行写入以软件名命名的txt文件中，并将txt文件存放在versions文件夹下;
 
-使用命令: python downloader.py yoursoftwareName
+   使用命令: python downloader.py yoursoftwareName
+
+2. 使用scrapy爬虫，进入Downloader目录
+
+    使用命令: scrapy crawl downloader -a software=SOFTWARENAME   
+    SOFTWARENAME: qemu,v8,bitcoin,tcpdump,emacs,monkey,openswan,openafs,openjpeg
 
 ###支持的软件：
 - chrome
