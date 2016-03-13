@@ -437,7 +437,63 @@ def init_cups():
         command = baseCommand % (version,version)
         commands.append(command)
     return commands
+def init_quagga():
+    baseCommand = "wget -P quagga http://download.savannah.gnu.org/releases/quagga/" 
+    versionsFile = "./versions/quagga.txt"
+    commands = []
+    flag=None
+    for version in open(versionsFile):
+        version = version.strip()
+        if version=="FLAG":
+            flag=1
+            continue
+        if flag==None:
+            command = baseCommand + "attic/quagga-%s.tar.gz" % version
+        else:
+            command = baseCommand + "quagga-%s.tar.gz" % version
+        commands.append(command)
+    return commands
+    
+def init_libxslt():
+    baseCommand = "wget -P  libxslt http://xmlsoft.org/sources/" 
+    versionsFile = "./versions/libxslt.txt"
+    commands = []
+    flag=None
+    for version in open(versionsFile):
+        version = version.strip()
+        if version=="FLAG":
+            flag=1
+            continue
+        if(flag==None):
+            command = baseCommand + "old/libxslt-%s.tar.gz" % version
+        else:
+            command = baseCommand + "libxslt-%s.tar.gz" % version
+        commands.append(command)
+    return commands
 
+def init_libxml():
+    baseCommand = "wget -P  libxml http://xmlsoft.org/sources/" 
+    versionsFile = "./versions/libxml.txt"
+    commands = []
+    flag=None
+    for version in open(versionsFile):
+        version = version.strip()
+        if version=="FLAG1":
+            flag=1
+            continue
+        elif version == "FLAG2":
+            flag=2
+            continue
+        if flag==None:
+            command = baseCommand + "old/libxml-%s.tar.gz" % version
+        elif flag==1:
+            command = baseCommand + "old/libxml2-%s.tar.gz" % version
+        elif flag==2:
+            command = baseCommand + "libxml2-%s.tar.gz" % version
+        commands.append(command)
+    return commands
+
+    
 def main():
     
     if len(sys.argv) !=2:
