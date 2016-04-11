@@ -34,6 +34,8 @@ def init_linux_kernel():
         version = version.strip()
         if version[0] == "4":
             command = baseCommand % ("4.x",version)
+        elif version[0] == "3":
+            command = baseCommand % ("3.0",version)
         else:
             command = baseCommand % (version[:3],version)
         commands.append(command)
